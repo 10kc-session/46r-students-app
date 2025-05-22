@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>46r Students</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .container>div {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container"></div>
+    <script>
+        async function getData() {
+            let response = await fetch("https://dawn-tar-primrose.glitch.me/students");
+            let students = await response.json();
+            displayData(students);
+        }
+        function displayData(students) {
+            let container = document.getElementById("container");
+            students.forEach(student => {
+                let { studentName, studentAddress } = student;
+                let item = document.createElement("div");
+                item.innerHTML = `
+                    <p><b>Student Name : </b>${studentName}</p>
+                    <p><b>Student Address : </b>${studentAddress}</p>
+                `
+                container.appendChild(item)
+            })
+        }
+        getData();
+    </script>
+</body>
+
+</html>
